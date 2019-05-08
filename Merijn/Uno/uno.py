@@ -3,7 +3,7 @@ import json
 import math
 import random
 import checkdecks
-import cardevaluate
+import evaluate
 import time
 # load JSON files (read mode)
 cards = json.load(open('cards.json','r'))
@@ -65,10 +65,10 @@ while round == "cw":
     for x in players:
         print("It's now ", playersName[i], "'s turn.")
         print("Amount of cards: ", len(x))
-        # print("\n\n Card on stack: ", playStack[len(playStack)-1])
+        print("\n\n Card on stack: ", playStack[-1])
         print("\n\nThese are your cards: ", x, sep='\n')
         userchoice = input('Type the card you want to play: ')
-        evalResult = cardevaluate.evalCard(userchoice, x, playStack)
+        evalResult = evaluate.evalCard(userchoice, x, playStack)
         if evalResult == 0:
             playStack.append(userchoice)
             x.remove(userchoice)
