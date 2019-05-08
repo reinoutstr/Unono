@@ -50,6 +50,14 @@ for x in range(4):
         if len(current_deal_player) == 7:
             successful = 1
 
+successful = 0
+while not successful:
+    cardtype = random.choice([blue, red, yellow, green])
+    cardchoice = random.choice(cardtype)
+    if not checkdecks.checkdecks(cardchoice, player1, player2, player3, player4):
+        playStack.append(cardchoice)
+        successful = 1
+print(playStack)
 
 # microsoft diagnostics tool irl
 time.sleep(3)
