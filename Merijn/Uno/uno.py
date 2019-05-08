@@ -81,9 +81,7 @@ while round == "ccw":
         print("Amount of cards: ", len(x))
         # print("\n\n Card on stack: ", playStack[len(playStack)-1])
         print("\n\nThese are your cards: ", x, sep='\n')
-        userchoice = input('Type the card you want to play: ')
-        evalResult = cardevaluate.evalCard(userchoice, x, playStack)
-        if evalResult == 0:
-            playStack.append(userchoice)
-            x.remove(userchoice)
+        #userchoice = input('Type the card you want to play: ')
+        #    playStack.append(userchoice)
+        #    x.remove(userchoice)
         i -= 1
