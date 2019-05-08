@@ -1,23 +1,16 @@
 def evalCard(userchoice, player, playStack):
+	
 	currentCard = playStack[-1] #Get the last card from the stack	
-	if userchoice in blue && currentCard in blue: #Check if the colors of the cards are compatibel
-		return true
-	elif userchoice in red && currentCard in red:
-		return true
-	elif userchoice in green && currentCard in green:
-		return true
-	elif userchoice in yellow && currentCard in yellow:
-		return true
-	elif userchoice in special:
-		return true
-	else:
-		currentCardNumberArray = currentCard.split("#") #Splits the card data in two
-		currentCardNumber = currentCardNumberArray[1] #Sets a new variable with only the number of the card
+		
+	currentCardArray = currentCard.split("#") #Splits the card data in two
+	currentCardColor = currentCardArray[0] #Sets a new variable with only the color of the card
+	currentCardNumber = currentCardArray[1] #Sets a new variable with only the number of the card
 	
-		userchoiceArray = currentCard.split("#") #Splits the card data in two
-		userchoiceNumber = userchoiceArray[1] #Sets a new variable with only the number of the card
+	userchoiceArray = userchoice.split("#") #Same as above but with the userchoice
+	userchoiceColor = userchoiceArray[0]
+	userchoiceNumber = userchoiceArray[1] 
 	
-		if userchoiceNumber == currentCardNumber: #Checks if the number of the two cards the same are
-			return true
-		else: 
-			return false
+	if userchoiceNumber == currentCardNumber or userchoiceColor == currentCardColor: #Checks if the number of the two cards the same are
+		return 1
+	else: 
+		return 0
