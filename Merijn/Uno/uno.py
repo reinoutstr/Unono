@@ -50,14 +50,6 @@ for x in range(4):
         if len(current_deal_player) == 7:
             successful = 1
 
-successful = 0
-while not successful:
-    cardtype = random.choice([blue, red, yellow, green])
-    cardchoice = random.choice(cardtype)
-    if not checkdecks.checkdecks(cardchoice, player1, player2, player3, player4):
-        playStack.append(cardchoice)
-        successful = 1
-print(playStack)
 
 # microsoft diagnostics tool irl
 time.sleep(3)
@@ -77,10 +69,27 @@ while round == "cw":
         print("\n\nThese are your cards: ", x, sep='\n')
         userchoice = input('Type the card you want to play: ')
         evalResult = evaluate.evalCard(userchoice, x, playStack)
-        if evalResult == 0:
+        if evalResult == 1 and userchoice in x:
             playStack.append(userchoice)
             x.remove(userchoice)
-        i += 1
+			if len(x) == 0: # If the user had zero cards, he wins
+				print("Player ", playersName[1] " has won!")
+			else:
+				i += 1
+		cardtype = random.choice([blue, red, yellow, green, special]) #Create random card
+        cardchoice = random.choice(cardtype)
+		elif evalResult == 0:	#When the player plays a wrong card, his turn is skipped and he gats a card
+			print("unable to play card")
+			x.append(cardchoice)
+			i += 1
+		elif userchoice not in x:
+			print("You dont even have that card casual")
+			x.append(cardchoice)
+			i += 1
+		else:
+			print("You fucked up")
+			x.append(cardchoice)
+			i += 1
 
 while round == "ccw":
     i = 3
