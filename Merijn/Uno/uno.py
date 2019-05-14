@@ -61,35 +61,46 @@ time.sleep(1)
 round = "cw"
 
 while round == "cw":
+	skipcard = 0
     i = 0
+	
     for x in players:
-        print("It's now ", playersName[i], "'s turn.")
-        print("Amount of cards: ", len(x))
-        print("\n\n Card on stack: ", playStack[-1])
-        print("\n\nThese are your cards: ", x, sep='\n')
-        userchoice = input('Type the card you want to play: ')
-        evalResult = evaluate.evalCard(userchoice, x, playStack)
-        if evalResult == 1 and userchoice in x:
-            playStack.append(userchoice)
-            x.remove(userchoice)
-			if len(x) == 0: # If the user had zero cards, he wins
-				print("Player ", playersName[1] " has won!")
-			else:
+        if skipcard == 0:
+			print("It's now ", playersName[i], "'s turn.")
+ 	        print("Amount of cards: ", len(x))
+	        print("\n\n Card on stack: ", playStack[-1])
+	        print("\n\nThese are your cards: ", x, sep='\n')
+	        userchoice = input('Type the card you want to play: ')
+	        evalResult = evaluate.evalCard(userchoice, x, playStack)
+	        if evalResult == 1 and userchoice in x:
+ 	           playStack.append(userchoice)
+	            x.remove(userchoice)
+				if len(x) == 0: # If the user had zero cards, he wins
+					print("Player ", playersName[1] " has won!")
+				else:
+					i += 1
+			cardtype = random.choice([blue, red, yellow, green, special]) #Create random card
+ 	       cardchoice = random.choice(cardtype)
+			elif evalResult == 0:	#When the player plays a wrong card, his turn is skipped and he gats a card
+				print("unable to play card")
+				x.append(cardchoice)
 				i += 1
-		cardtype = random.choice([blue, red, yellow, green, special]) #Create random card
-        cardchoice = random.choice(cardtype)
-		elif evalResult == 0:	#When the player plays a wrong card, his turn is skipped and he gats a card
-			print("unable to play card")
-			x.append(cardchoice)
+			elif userchoice not in x:
+				print("You dont even have that card casual")
+				x.append(cardchoice)
+				i += 1
+			else:
+				print("You fucked up")
+				x.append(cardchoice)
+				i += 1
+			elif cardchoice.split("#")[1] == "skip":
+				skipcard = 10
+				i += 1
+		elif:
 			i += 1
-		elif userchoice not in x:
-			print("You dont even have that card casual")
-			x.append(cardchoice)
-			i += 1
-		else:
-			print("You fucked up")
-			x.append(cardchoice)
-			i += 1
+		
+			
+			
 
 while round == "ccw":
     i = 3
