@@ -52,7 +52,7 @@ for x in range(4):
 
 cardtype = random.choice([blue,red,yellow,green,special])
 carchoice = random.choice(cardtype)
-if cardchoice not in special or cardchoice.split("#")[1] in ["skip", "flip", "two+"]:
+if cardchoice not in special or cardchoice.split("#")[1] not in ["skip", "flip", "two+"]:
 	playStack.append(cardchoice)
 # microsoft diagnostics tool irl
 time.sleep(3)
@@ -77,6 +77,7 @@ while round == "cw":
 		print("\n\n Card on stack: ", playStack[-1])
 		print("\n\nThese are your cards: ", x, sep='\n')
 		userchoice = input('Type the card you want to play: ')
+		# hier de kaart pak ding doen @reinout
 		evalResult = evaluate.evalCard(userchoice, x, playStack)
 		if evalResult == 1 and userchoice in x:
 			playStack.append(userchoice)
