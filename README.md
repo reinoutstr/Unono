@@ -21,7 +21,7 @@ sudo pacman -S python-(version)
 ```
 
 #### Windows:
-install latest version from <https://www.python.org/>
+install latest version from the [python site](https://www.python.org/)
 
 
 
