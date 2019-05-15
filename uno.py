@@ -68,11 +68,13 @@ while playRound:
 		i = 0
 		skipcard = 0
 		for x in players:
+			if playRound != "cw":
+				continue
 			if skipcard:
 				del skipcard
 				i += 1
 				continue
-
+			print(i)
 			print("It's now ", playersName[i], "'s turn.")
 			print("Amount of cards: ", len(x))
 			print("\n\n Card on stack: ", playStack[-1])
@@ -87,13 +89,15 @@ while playRound:
 					print("Player ", playersName[1], " has won!")
 				else:
 					i += 1
-			cardtype = random.choice([blue, red, yellow, green, special]) #Create random card
-			cardchoice = random.choice(cardtype)
-			if evalResult == 0:	#When the player plays a wrong card, his turn is skipped and he gats a card
+			elif evalResult == 0:	#When the player plays a wrong card, his turn is skipped and he gats a card
+				cardtype = random.choice([blue, red, yellow, green, special]) #Create random card
+				cardchoice = random.choice(cardtype)
 				print("unable to play card")
 				x.append(cardchoice)
 				i += 1
 			elif userchoice not in x:
+				cardtype = random.choice([blue, red, yellow, green, special]) #Create random card
+				cardchoice = random.choice(cardtype)
 				print("You dont even have that card casual")
 				x.append(cardchoice)
 				i += 1
