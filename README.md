@@ -41,7 +41,7 @@ Nope.
 
 * **Merijn Sandvliet** - [CB101](https://github.com/cb101b)
 * **Robin van Ruitenbeek** - [MIUPC](https://github.com/miupc)
-* **Reinout ..** - [idk](https://pornhub.com)
+* **Reinout Straten** - [ReinoutStr](https://github.com/reinoutstr)
 
 See also the list of [contributors](https://github.com/cb101b/Unono/contributors) who participated in this project.
 
