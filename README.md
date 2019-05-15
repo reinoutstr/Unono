@@ -21,14 +21,13 @@ sudo pacman -S python-(version)
 ```
 
 #### Windows:
-```
 install latest version from <https://www.python.org/>
-```
+
 
 
 ### Installing
 
-To install this framework just clone or download the entire master branch. To run the program, run 'uno.py
+To install this framework just clone or download the entire master branch. To run the program, run 'uno.py'
 
 ## Built With
 
