@@ -41,7 +41,7 @@ Nope.
 
 * **Merijn Sandvliet** - [CB101](https://github.com/cb101b)
 * **Robin van Ruitenbeek** - [MIUPC](https://github.com/miupc)
-* **Reinout Straten** - [ReinoutStr](https://github.com/reinoutstr)
+* **Reinout Strating** - [ReinoutStr](https://github.com/reinoutstr)
 
 See also the list of [contributors](https://github.com/cb101b/Unono/contributors) who participated in this project.
 
@@ -51,6 +51,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Informatica gay
+* why are we doing dis
 
 
