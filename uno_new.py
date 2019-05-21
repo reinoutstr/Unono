@@ -6,6 +6,13 @@ import math
 #load json file (read-write mode)
 cards = json.load(open('cards.json', 'r+'))
 
+# declare card color sets
+blue = cards["blue"]
+red = cards["red"]
+yellow = cards["yellow"]
+green = cards["green"]
+special = cards["special"]
+
 #declare playstack
 playStack = []
 
@@ -28,7 +35,7 @@ print(playersName)
 
 print("Handing cards out...")
 
-
+#Gives 4 random cards to every player
 for x in range(4):
     current_deal_player = players[x]
     successful = 0
@@ -41,11 +48,13 @@ for x in range(4):
         if len(current_deal_player) == 7:
             successful = 1
 
+#Adds random first card to the playstack
 cardtype = random.choice([blue,red,yellow,green,special])
 carchoice = random.choice(cardtype)
 if cardchoice not in special or cardchoice.split("#")[1] not in ["skip", "flip", "two+"]:
 	playStack.append(cardchoice)
-# microsoft diagnostics tool irl
+	
+# Uwowono
 time.sleep(3)
 print("Done dealing!")
 time.sleep(1)
