@@ -2,6 +2,7 @@
 import json
 import time
 import math
+import random
 
 #load json file (read-write mode)
 cards = json.load(open('cards.json', 'r+'))
