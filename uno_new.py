@@ -62,4 +62,31 @@ time.sleep(1)
 print("Let's start!")
 time.sleep(1)
 
+Gamedir = 'ccw'
 
+while true: #Main game loop
+	i = 0 # i for which player's turn it is (0, 1, 2, 3)
+	for player in players:
+		print("It's now ", playersName[i], "'s turn.")
+		def ChooseCard():
+			print("\n\n Card on stack: ", playStack[-1])
+			print("\n\nThese are your cards: ", player, sep='\n')
+			userchoice = input('Type the card you want to play: ')
+			evalResult = evaluate.evalCard(userchoice, player, playStack) #Find if the card the user selects is compatible with the card on the playstack
+
+			if evalResult == 1 and userchoice in player: # If the cards are compatible remove card from player and add card to playstack
+				playStack.append(userchoice)
+				player.remove(userchoice)
+				if len(player) == 0: # If the p-layer has 0 cards he wins
+					print("Player", playersName[1], " has won!")
+				elif Gamedir != 'ccw':
+					i += 1
+				elif Gamedir == 'ccw':
+					i -= 1
+
+			else:
+				print('nope')
+				ChooseCard()
+			
+			
+			
