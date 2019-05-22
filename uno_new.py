@@ -4,8 +4,20 @@ import time
 import math
 import random
 
-#load json file (read-write mode)
-cards = json.load(open('cards.json', 'r+'))
+#load json file (read mode)
+cards = json.load(open('cards.json', 'r'))
+
+# function for saving new dictionary
+def dumpCard(carddict):
+	with open('cards.json','w') as outfile:
+		json.dump(carddict, outfile)
+		
+# function for choosing card
+def chooseCard():
+	cardtype = random.choice([blue, red, yellow, green, special])
+	cardchoice = random.choice(cardtype)
+	current_deal_player.append(cardchoice)
+	cards[cardtype].remove(cardchoice)
 
 # declare card color sets
 blue = cards["blue"]
