@@ -1,13 +1,44 @@
 #!/usr/bin/python
-# imports
+#imports
 import json
+import time
 import math
 import random
-import checkdecks
-import evaluate
-import time
-# load JSON files (read mode)
-cards = json.load(open('cards.json','r'))
+
+#load json file (read mode)
+cards = json.load(open('cards.json', 'r'))
+
+# function for saving new dictionary
+def dumpCard(carddict):
+    with open('cards.json','w') as outfile:
+        json.dump(carddict, outfile)
+
+def cardIdent(cardchoice):
+    if cardchoice.split("#")[0] == "r":
+        return "red"
+    elif cardchoice.split("#")[0] == "b":
+        return "blue"
+    elif cardchoice.split("#")[0] == "g":
+        return "green"
+    elif cardchoice.split("#")[0] == "y":
+        return "yellow"
+    else:
+        return "special"
+
+# function for choosing card
+def chooseCard():
+    cardtype = random.choice(list(cards.keys()))
+    print(cardtype)
+    cardchoice = random.choice(cards[cardtype])
+    print(cardchoice)
+    current_deal_player.append(cardchoice)
+    cardTypeFull = cardIdent(cardchoice)
+    cardIndex = cards[cardTypeFull].index(cardchoice)
+    print(cardIndex)
+    del cards[cardTypeFull][cardIndex] #here
+    del cardTypeFull
+    del cardIndex
+    print('\n\n'+str(cards))
 
 # declare card color sets
 blue = cards["blue"]
@@ -16,7 +47,7 @@ yellow = cards["yellow"]
 green = cards["green"]
 special = cards["special"]
 
-# declare playstack
+#declare playstack
 playStack = []
 
 # declare player arrays
@@ -38,25 +69,29 @@ print(playersName)
 
 print("Handing cards out...")
 
-
+#Gives 4 random cards to every player
 for x in range(4):
     current_deal_player = players[x]
     successful = 0
     while not successful:
-        cardtype = random.choice([blue, red, yellow, green, special])
-        cardchoice = random.choice(cardtype)
-        # if cardchoice not in player1 and cardchoice not in player2 and cardchoice not in player3 and cardchoice not in player4:
-        if not checkdecks.checkdecks(cardchoice, player1, player2, player3, player4):
-            current_deal_player.append(cardchoice)
-        if len(current_deal_player) == 7:
-            successful = 1
+        chooseCard()
+        # cardtype = random.choice([blue, red, yellow, green, special])
+        # cardchoice = random.choice(cardtype)
+        # # if cardchoice not in player1 and cardchoice not in player2 and cardchoice not in player3 and cardchoice not in player4:
+        # if not checkdecks.checkdecks(cardchoice, player1, player2, player3, player4):
+        #     current_deal_player.append(cardchoice)
+        # if len(current_deal_player) == 7:
+        #     successful = 1
+    print(current_deal_player)
+    dumpCard(cards)
 
-cardtype = random.choice([blue,red,yellow,green,special])
-carchoice = random.choice(cardtype)
-if cardchoice not in special or cardchoice.split("#")[1] not in ["skip", "flip", "two+"]:
-	playStack.append(cardchoice)
+# #Adds random first card to the playstack
+# cardtype = random.choice([blue,red,yellow,green,special])
+# carchoice = random.choice(cardtype)
+# if cardchoice not in special or cardchoice.split("#")[1] not in ["skip", "flip", "two+"]:
+#       playStack.append(cardchoice)
 
-# Uwowono
+# # Uwowono
 # time.sleep(3)
 # print("Done dealing!")
 # time.sleep(1)
