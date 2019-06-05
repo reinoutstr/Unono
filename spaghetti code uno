@@ -1,3 +1,4 @@
+import random
 rood0=[1, 0]
 rood1=[1, 1]
 rood2=[1, 2]
@@ -59,18 +60,22 @@ player4=[]
 #start spel
 
 
-def choosingcard(x):
+def choosingcard(firstcard):
   
   nummer = 0
-  if x == 0:
-    topcard = rood1
-    print('check')
+
+  topcard = allcards[firstcard]
+  print('check')
+  print (topcard)
+  
   nummer=int(input())
   
   chosencard = allcards[nummer]
   
   kleurkaart=chosencard[0]
   nummerkaart=chosencard[1]
+  
+  print (chosencard)
   
   kleurcheck = topcard[0]
   nummercheck = topcard[1]
@@ -79,9 +84,9 @@ def choosingcard(x):
     print('je moeder is een plopkoek')
     if input() == "yes":
      #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
-     topcard = chosencard
-    #if input == "non":
-     # continue   
+     firstcard = chosencard
+     firstcard = allcards.index(firstcard)
+    
     else:
        print('which card else do you wanna lay down')
   elif nummercheck == nummerkaart:
@@ -90,28 +95,23 @@ def choosingcard(x):
     
     if input() == "yes":
      #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
-     topcard = chosencard
+     firstcard = chosencard
+     firstcard = allcards.index(firstcard)
+      
     else:
       print('which card else do you wanna lay down')
-     
-    #if input == "non":
-     # continue
     
   else:
     print('please try again')
-    choosingcard(0)
+    choosingcard(firstcard)
   print(topcard)
-  choosingcard(0)
+  choosingcard(firstcard)
 
 
 
 
 
+p = random.randint(1,21)
+print(p)
+choosingcard(p)
 
-
-
-
-
-
-
-choosingcard(1)
