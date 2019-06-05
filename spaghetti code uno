@@ -44,6 +44,7 @@ yellow8 = [4, 8]
 yellow9 = [4, 9]
 
 allcards=[rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9]
+tempcards=[rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9]
 
 player1=[]
 player2=[]
@@ -56,7 +57,9 @@ players = [player1, player2, player3, player4]
 for x in range(len(players)):
   for y in range(5):
     currentplayerarray = players[x]
-    currentplayerarray.append(allcards[random.randint(1, 21)])
+    ranintar = random.randint(0, len(tempcards))
+    currentplayerarray.append(allcards[ranintar])
+    tempcards.pop(ranintar)
   # print(players[x])
 
 # start spel
