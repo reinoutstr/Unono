@@ -44,73 +44,102 @@ yellow8 = [4, 8]
 yellow9 = [4, 9]
 
 allcards=[rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9]
+tempcards=[rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9]
 
 player1=[]
 player2=[]
 player3=[]
 player4=[]
+
+players = [player1, player2, player3, player4]
 #kaarten uitdelen
 
+for x in range(len(players)):
+  for y in range(5):
+    currentplayerarray = players[x]
+    plo = random.randint(0, len(tempcards))
+    currentplayerarray.append(allcards[plo])
+    tempcards.pop(plo)
+  # print(players[x])
 
-
-
-
-
-
-#start spel
+# start spel
 
 
 def choosingcard(firstcard):
-  
-  nummer = 0
+  for x in players:
+    nummer = 0
+    
+    topcard = allcards[firstcard]
+    print ('The card on top is: ', topcard)
+    print ('Your cards: ', x)
+    
+    nummer=int(input('Choose a card: '))
+    
+    if nummer > (len(x)-1):
+      print('this number is too high')
+      print('.')
+      choosingcard(firstcard)
+      
+    if nummer == -1:
+      print('bitch')
+      addplayer = x
+      add = random.randint(0, len(tempcards))
+      addplayer.append(tempcards[add])
+      tempcards.pop(add)
+      print('.')
+      choosingcard(firstcard)
+    
+    chosencard = x[nummer]
+    
+    kleurkaart=chosencard[0]
+    nummerkaart=chosencard[1]
+    
+    print (chosencard)
+    
+    kleurcheck = topcard[0]
+    nummercheck = topcard[1]
+    
+    if kleurcheck == kleurkaart and chosencard in x:
+      print('You can place this card on the stack!')
+      if input('Are you sure you want to place this card? ') == "yes":
+       #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
+       x.remove(chosencard)
+       firstcard = chosencard
+       firstcard = allcards.index(firstcard)
+       print('.')
+      
+      else:
+         print('which card else do you wanna lay down')
+         print('.')
 
-  topcard = allcards[firstcard]
-  print('check')
-  print (topcard)
-  
-  nummer=int(input())
-  
-  chosencard = allcards[nummer]
-  
-  kleurkaart=chosencard[0]
-  nummerkaart=chosencard[1]
-  
-  print (chosencard)
-  
-  kleurcheck = topcard[0]
-  nummercheck = topcard[1]
-  
-  if kleurcheck == kleurkaart:
-    print('je moeder is een plopkoek')
-    if input() == "yes":
-     #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
-     firstcard = chosencard
-     firstcard = allcards.index(firstcard)
-    
-    else:
-       print('which card else do you wanna lay down')
-  elif nummercheck == nummerkaart:
-    
-    print('card available, would you like to put it down?')
-    
-    if input() == "yes":
-     #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
-     firstcard = chosencard
-     firstcard = allcards.index(firstcard)
+      
+    elif nummercheck == nummerkaart:
+      
+      print('card available, would you like to put it down?')
+      
+      if input() == "yes":
+       #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
+       firstcard = chosencard
+       firstcard = allcards.index(firstcard)
+       print('.')
+        
+      else:
+        print('which card else do you wanna lay down')
+        print('.')
+
       
     else:
-      print('which card else do you wanna lay down')
-    
-  else:
-    print('please try again')
-    choosingcard(firstcard)
-  print(topcard)
+      
+      print('please try again')
+      print('.')
+      #choosingcard(firstcard)
+    #print(topcard)
   choosingcard(firstcard)
 
 
 
 
 
-p = random.randint(1,21)
+p = random.randint(1,len(allcards))
 print(p)
 choosingcard(p)
