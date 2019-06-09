@@ -72,23 +72,24 @@ playernames = ['player1', 'player2', 'player3', 'player4']
 
 #kaarten uitdelen
 
-for x in range(len(players)):
-  for y in range(5):
-    currentplayerarray = players[x]
-    plo = random.randint(0, (len(tempcards)-1))
-    currentplayerarray.append(tempcards[plo])
-    tempcards.pop(plo)
-    print('succ')
-
-# start spel
-
-playerid = 0
-
 def addCard(playerinv, amount): #function to add a amount of cards to a inventory
   for x in range(amount):
     plo = random.randint(0, (len(tempcards)-1))
     playerinv.append(tempcards[plo])
     tempcards.pop(plo)
+
+for i in range(len(players)):
+  addCard(players[i], 5)
+  #for y in range(5):
+  #  currentplayerarray = players[i]
+  #  plo = random.randint(0, (len(tempcards)-1))
+  #  currentplayerarray.append(tempcards[plo])
+  #  tempcards.pop(plo)
+  #  print('succ')
+
+# start spel
+
+playerid = 0
 
 def choosingcard(firstcard, playerid, gamedir):
   for x in range(0, len(players), gamedir):
@@ -113,8 +114,8 @@ def choosingcard(firstcard, playerid, gamedir):
     
     nummer=int(input('\n Choose a card: '))
     
-    if nummer > (len(x)-1 or nummer < 0): #If the pkayer tpes a invalid number, this happens
-      print('This number is too high')
+    if nummer > (len(x)-1) or nummer < 0: #If the player tpes a invalid number, this happens
+      print('This number is too high or low')
       addCard(x, 1)
       print('Skipping to next player...')
       playerid += gamedir
