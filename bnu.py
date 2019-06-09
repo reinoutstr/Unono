@@ -92,7 +92,7 @@ for i in range(len(players)):
 playerid = 0
 
 def choosingcard(firstcard, playerid, gamedir):
-  for x in range(0, len(players), gamedir):
+  for x in range(0, 3, gamedir):
     nummer = 0
     topcard = allcards[firstcard]
 
