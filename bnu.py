@@ -47,8 +47,8 @@ yellow8 = [4, 8]
 yellow9 = [4, 9]
 yellow10 = [4, 10]
 
-wild1 = [5, 0]
-wild2 = [5, 1]
+wild1 = [5, 0] #pak 2 kaarten
+wild2 = [5, 1] #pak 4 kaarten
 
 allcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10]
 tempcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10]
@@ -59,110 +59,108 @@ player3=[]
 player4=[]
 
 players = [player1, player2, player3, player4]
+playernames = ['player1', 'player2', 'player3', 'player4']
+
+#needHelp = input('Do you need help? (yes to display, no to continue) ')
+#if needHelp == "yes":
+  #print('nee')
+  #ga ff gekke kaulo help schrijven dreiries
+
 #kaarten uitdelen
 
 for x in range(len(players)):
   for y in range(5):
     currentplayerarray = players[x]
-    plo = random.randint(1, len(tempcards))
-    currentplayerarray.append(allcards[plo])
+    plo = random.randint(0, (len(tempcards)-1))
+    currentplayerarray.append(tempcards[plo])
     tempcards.pop(plo)
   # print(players[x])
 
 # start spel
 
+playerid = 0
 
-def choosingcard(firstcard):
+def addCard(playerinv, amount): #function to add a amount of cards to a inventory
+  for x in range(amount):
+    plo = random.randint(0, (len(tempcards)-1))
+    playerinv.append(tempcards[plo])
+    tempcards.pop(plo)
+
+def choosingcard(firstcard, playerid):
   for x in players:
     nummer = 0
-
     topcard = allcards[firstcard]
-    if topcard == wild1: #If there's a wild card these actions are taken
-      for y in range(2):
-        currentplayerarray = x
-        plo = random.randint(0, len(tempcards))
-        currentplayerarray.append(allcards[plo])
-        tempcards.pop(plo)
-      print('You got 2 cards...')
-    elif topcard == wild2:
-      for y in range(4):
-        currentplayerarray = x
-        plo = random.randint(0, len(tempcards))
-        currentplayerarray.append(allcards[plo])
-        tempcards.pop(plo)
-      print('You got 4 cards...')
 
-    #print("It's now ", x, ' turn')
+    topcardnummer = topcard[1]
+
+    if topcard == wild1: #If there's a wild card these actions are taken
+      print('\nYou got 2 cards...')
+      addCard(x, 2)
+    elif topcard == wild2:
+      addCard(x, 4)
+      print('\nYou got 4 cards...')
+    elif topcardnummer == 10:
+      print('\nYou got 2 cards...')
+      addCard(x, 2)
+
+    print("\n It's now ", playernames[playerid], "'s turn")
     print ('The card on top is: ', topcard)
     print ('Your cards: ', x)
     
-    nummer=int(input('Choose a card: '))
+    nummer=int(input('\n Choose a card: '))
     
-    if nummer > (len(x)-1):
+    if nummer > (len(x)-1 or nummer < 0): #If the pkayer tpes a invalid number, this happens
       print('This number is too high')
+      addCard(x, 1)
       print('Skipping to next player...')
-      choosingcard(firstcard)
-      
-    if nummer == -1:
-      print('bitch')
-      addplayer = x
-      add = random.randint(0, len(tempcards))
-      addplayer.append(tempcards[add])
-      tempcards.pop(add)
-      print('.')
-      choosingcard(firstcard)
+      playerid += 1
+      choosingcard(firstcard, playerid)
     
     chosencard = x[nummer]
     
     kleurkaart=chosencard[0]
     nummerkaart=chosencard[1]
-    
-    print (chosencard)
-    
     kleurcheck = topcard[0]
     nummercheck = topcard[1]
     
-    if kleurcheck == kleurkaart and chosencard in x:
-      print('You can place this card on the stack!')
+    if kleurcheck == kleurkaart and chosencard in x or chosencard == wild1 or chosencard == wild2 or kleurcheck == 5:
+      print('\n You can place this card on the stack!')
+      if input('Are you sure you want to place this card? ') == "yes":
+        #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
+        x.remove(chosencard)
+        firstcard = chosencard
+        firstcard = allcards.index(firstcard)
+        if len(x) == 0:
+          print(playernames[playerid], ' Has won!')
+        else:
+          playerid += 1
+      else:
+         print('\n Ok, skipping turn...')
+         addCard(x, 1)
+         playerid += 1
+
+      
+    elif nummercheck == nummerkaart:  
+      print('\n You can place this card on the stack!')
       if input('Are you sure you want to place this card? ') == "yes":
        #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
-       x.remove(chosencard)
        firstcard = chosencard
        firstcard = allcards.index(firstcard)
-       print('.')
-      
+       playerid += 1   
       else:
-         print('which card else do you wanna lay down')
-         print('.')
+         print('\n Ok, skipping turn...')
+         addCard(x, 1)
+         playerid += 1 
 
-      
-    elif nummercheck == nummerkaart:
-      
-      print('card available, would you like to put it down?')
-      
-      if input() == "yes":
-       #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
-       firstcard = chosencard
-       firstcard = allcards.index(firstcard)
-       print('.')
-        
-      else:
-        print('which card else do you wanna lay down')
-        print('.')
+    else:    
+      print('\n Wrong card, skipping to next player...')
+      addCard(x, 1)
+      playerid += 1
 
-      
-    else:
-      
-      print('please try again')
-      print('.')
-      #choosingcard(firstcard)
-    #print(topcard)
-  choosingcard(firstcard)
+  print ('owo')
+  playerid = 0
+  choosingcard(firstcard, playerid)
 
-
-
-
-
-p = random.randint(1,len(allcards))
-print(p)
-choosingcard(p)
+p = random.randint(1,len(tempcards))
+tempcards.pop(p)
+choosingcard(p, playerid)
