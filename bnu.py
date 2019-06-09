@@ -125,7 +125,7 @@ def choosingcard(firstcard, playerid):
     
     if kleurcheck == kleurkaart and chosencard in x or chosencard == wild1 or chosencard == wild2 or kleurcheck == 5:
       print('\n You can place this card on the stack!')
-      if input('Are you sure you want to place this card? ') == "yes":
+      if input('Are you sure you want to place this card? ') == "y":
         #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
         x.remove(chosencard)
         firstcard = chosencard
@@ -142,7 +142,7 @@ def choosingcard(firstcard, playerid):
       
     elif nummercheck == nummerkaart:  
       print('\n You can place this card on the stack!')
-      if input('Are you sure you want to place this card? ') == "yes":
+      if input('Are you sure you want to place this card? ') == "y":
        #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
        firstcard = chosencard
        firstcard = allcards.index(firstcard)
