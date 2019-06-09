@@ -10,6 +10,7 @@ rood7=[1, 7]
 rood8=[1, 8]
 rood9=[1, 9]
 rood10 = [1, 10] #pak twee kaarten
+rood11 = [4, 11] #invert gamedir
 
 green0 = [2, 0]
 green1 = [2, 1]
@@ -21,7 +22,8 @@ green6 = [2, 6]
 green7 = [2, 7]
 green8 = [2, 8]
 green9 = [2, 9]
-green10 = [2, 10]
+green10 = [2, 10] #pak twee kaarten
+green11 = [4, 11] #invert gamedir
 
 blauw0 = [3, 0]
 blauw1 = [3, 1]
@@ -33,7 +35,8 @@ blauw6 = [3, 6]
 blauw7 = [3, 7]
 blauw8 = [3, 8]
 blauw9 = [3, 9]
-blauw10 = [3, 10]
+blauw10 = [3, 10] #pak twee kaarten
+blauw11 = [4, 11] #invert gamedir
 
 yellow0 = [4, 0]
 yellow1 = [4, 1]
@@ -45,13 +48,14 @@ yellow6 = [4, 6]
 yellow7 = [4, 7]
 yellow8 = [4, 8]
 yellow9 = [4, 9]
-yellow10 = [4, 10]
+yellow10 = [4, 10] #pak twee kaarten
+yellow11 = [4, 11] #invert gamedir
 
 wild1 = [5, 0] #pak 2 kaarten
 wild2 = [5, 1] #pak 4 kaarten
 
-allcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10]
-tempcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10]
+allcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, rood11, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, green11, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, blauw11, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10, yellow11]
+tempcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, rood11, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, green11, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, blauw11, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10, yellow11]
 
 player1=[]
 player2=[]
@@ -74,7 +78,7 @@ for x in range(len(players)):
     plo = random.randint(0, (len(tempcards)-1))
     currentplayerarray.append(tempcards[plo])
     tempcards.pop(plo)
-  # print(players[x])
+    print('succ')
 
 # start spel
 
@@ -86,8 +90,8 @@ def addCard(playerinv, amount): #function to add a amount of cards to a inventor
     playerinv.append(tempcards[plo])
     tempcards.pop(plo)
 
-def choosingcard(firstcard, playerid):
-  for x in players:
+def choosingcard(firstcard, playerid, gamedir):
+  for x in range(0, len(players), gamedir):
     nummer = 0
     topcard = allcards[firstcard]
 
@@ -113,8 +117,8 @@ def choosingcard(firstcard, playerid):
       print('This number is too high')
       addCard(x, 1)
       print('Skipping to next player...')
-      playerid += 1
-      choosingcard(firstcard, playerid)
+      playerid += gamedir
+      choosingcard(firstcard, playerid, gamedir)
     
     chosencard = x[nummer]
     
@@ -123,7 +127,7 @@ def choosingcard(firstcard, playerid):
     kleurcheck = topcard[0]
     nummercheck = topcard[1]
     
-    if kleurcheck == kleurkaart and chosencard in x or chosencard == wild1 or chosencard == wild2 or kleurcheck == 5:
+    if kleurcheck == kleurkaart and chosencard in x or kleurcheck == 5:
       print('\n You can place this card on the stack!')
       if input('Are you sure you want to place this card? ') == "y":
         #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
@@ -132,12 +136,15 @@ def choosingcard(firstcard, playerid):
         firstcard = allcards.index(firstcard)
         if len(x) == 0:
           print(playernames[playerid], ' Has won!')
+        elif nummerkaart == 11:
+          gamedir = -1
+          playerid += gamedir
         else:
-          playerid += 1
+          playerid += gamedir
       else:
          print('\n Ok, skipping turn...')
          addCard(x, 1)
-         playerid += 1
+         playerid += gamedir
 
       
     elif nummercheck == nummerkaart:  
@@ -146,21 +153,25 @@ def choosingcard(firstcard, playerid):
        #verwijder het kaart uit het players hand en voeg hem toe aan de stapel
        firstcard = chosencard
        firstcard = allcards.index(firstcard)
-       playerid += 1   
+       playerid += gamedir   
       else:
          print('\n Ok, skipping turn...')
          addCard(x, 1)
-         playerid += 1 
+         playerid += gamedir
 
     else:    
       print('\n Wrong card, skipping to next player...')
       addCard(x, 1)
-      playerid += 1
+      playerid += gamedir
 
   print ('owo')
-  playerid = 0
-  choosingcard(firstcard, playerid)
+  if gamedir == 1:
+    playerid = 0
+  elif gamedir == -1:
+    playerid = 3
+  choosingcard(firstcard, playerid, gamedir)
 
+gamedir = 1
 p = random.randint(1,len(tempcards))
 tempcards.pop(p)
-choosingcard(p, playerid)
+choosingcard(p, playerid, gamedir)
