@@ -9,6 +9,7 @@ rood6=[1, 6]
 rood7=[1, 7]
 rood8=[1, 8]
 rood9=[1, 9]
+rood10 = [1, 10] #pak twee kaarten
 
 green0 = [2, 0]
 green1 = [2, 1]
@@ -20,6 +21,7 @@ green6 = [2, 6]
 green7 = [2, 7]
 green8 = [2, 8]
 green9 = [2, 9]
+green10 = [2, 10]
 
 blauw0 = [3, 0]
 blauw1 = [3, 1]
@@ -31,6 +33,7 @@ blauw6 = [3, 6]
 blauw7 = [3, 7]
 blauw8 = [3, 8]
 blauw9 = [3, 9]
+blauw10 = [3, 10]
 
 yellow0 = [4, 0]
 yellow1 = [4, 1]
@@ -42,9 +45,13 @@ yellow6 = [4, 6]
 yellow7 = [4, 7]
 yellow8 = [4, 8]
 yellow9 = [4, 9]
+yellow10 = [4, 10]
 
-allcards=[rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9]
-tempcards=[rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9]
+wild1 = [5, 0]
+wild2 = [5, 1]
+
+allcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10]
+tempcards=[wild1, wild2, rood0, rood1, rood2, rood3, rood4, rood5, rood6, rood7, rood8, rood9, rood10, green0, green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, blauw0, blauw1, blauw2, blauw3, blauw4, blauw5, blauw6, blauw7, blauw8, blauw9, blauw10, yellow0, yellow1, yellow2, yellow3, yellow4, yellow5, yellow6, yellow7, yellow8, yellow9, yellow10]
 
 player1=[]
 player2=[]
@@ -57,7 +64,7 @@ players = [player1, player2, player3, player4]
 for x in range(len(players)):
   for y in range(5):
     currentplayerarray = players[x]
-    plo = random.randint(0, len(tempcards))
+    plo = random.randint(1, len(tempcards))
     currentplayerarray.append(allcards[plo])
     tempcards.pop(plo)
   # print(players[x])
@@ -68,16 +75,32 @@ for x in range(len(players)):
 def choosingcard(firstcard):
   for x in players:
     nummer = 0
-    
+
     topcard = allcards[firstcard]
+    if topcard == wild1: #If there's a wild card these actions are taken
+      for y in range(2):
+        currentplayerarray = x
+        plo = random.randint(0, len(tempcards))
+        currentplayerarray.append(allcards[plo])
+        tempcards.pop(plo)
+      print('You got 2 cards...')
+    elif topcard == wild2:
+      for y in range(4):
+        currentplayerarray = x
+        plo = random.randint(0, len(tempcards))
+        currentplayerarray.append(allcards[plo])
+        tempcards.pop(plo)
+      print('You got 4 cards...')
+
+    #print("It's now ", x, ' turn')
     print ('The card on top is: ', topcard)
     print ('Your cards: ', x)
     
     nummer=int(input('Choose a card: '))
     
     if nummer > (len(x)-1):
-      print('this number is too high')
-      print('.')
+      print('This number is too high')
+      print('Skipping to next player...')
       choosingcard(firstcard)
       
     if nummer == -1:
